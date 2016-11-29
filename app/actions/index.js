@@ -3,5 +3,5 @@ export const getProductInfo = (product) => {
   return {
     type: "PRODUCT_INFO",
     payload: product
-  }
+  };
 };
