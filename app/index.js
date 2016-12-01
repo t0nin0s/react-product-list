@@ -1,13 +1,11 @@
-'use strict';
-
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import reducers from './reducers';
 import Main from './components/main.js';
+import configureStore from './store/configStore';
 
-const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = configureStore();
 
 ReactDOM.render(
   <Provider store={ store } >
