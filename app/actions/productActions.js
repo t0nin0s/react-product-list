@@ -39,7 +39,7 @@ export function fetchProducts(){
   return (dispatch) => {
     dispatch(productsIsLoading(true));
     setTimeout(() => {
-      fetch('https://jsonplaceholder.typicode.com/photos')
+      fetch('https://jsonplaceholder.typicode.com/photos?_page=1')
         .then(response => response.json())
         .then(json =>
           dispatch(receiveProducts(json))

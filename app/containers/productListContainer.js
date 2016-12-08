@@ -2,43 +2,50 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 // import { getProductInfo } from '../actions/index';
-import { selectProduct, fetchProducts, requestsProducts } from '../actions/productActions'
+import { selectProduct, fetchProducts } from '../actions/productActions'
 
 class ProductListContainer extends Component {
 
   componentWillMount() {
-    //console.log("component Will Mount, lets fetch the Products")
     this.props.fetchProducts()
   }
 
   createListItems() {
     return this.props.products.map((product) => {
       return (
-        <li
+        <div className="item"
           key={product.id}
           onClick={() => this.props.selectProduct(product) }
         >
-          {product.name} price: {product.price}
-        </li> );
+          <span> {product.title} </span>
+          <img src={product.thumbnailUrl} />
+        </div> );
     });
   }
 
   render() {
     return (
-      <div> { this.props.isFetching } </div>
+      <div className="ProductListContainer">
+        {this.props.isFetching &&
+          <h4>Loading products...</h4>
+        }
+
+        {!this.props.isFetching &&
+          this.createListItems() }
+      </div>
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    products: state.products,
-    isFetching: state.isFetching
+    products: state.products.list,
+    isFetching: state.products.isFetching
   };
 }
 
 function matchDispatchToProps(dispatch){
-  return bindActionCreators({fetchProducts,requestsProducts}, dispatch);
+  return bindActionCreators({selectProduct, fetchProducts}, dispatch);
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(ProductListContainer);
