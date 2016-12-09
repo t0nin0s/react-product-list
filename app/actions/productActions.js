@@ -47,7 +47,7 @@ export function fetchProducts(){
         .catch(error =>
           dispatch(errorProducts(error))
         )
-    }, 5000
+    }, 2000
     )
   }
 }
