@@ -18,11 +18,13 @@ function productsIsLoading(bool) {
   }
 }
 
-function receiveProducts(products){
+function receiveProducts(products, page){
+  console.log()
   return {
     type: RECEIVE_PRODUCTS,
     isLoading: false,
     products,
+    page,
     receivedAt: Date.now()
   }
 }
@@ -35,14 +37,21 @@ function errorProducts(bool){
   }
 }
 
-export function fetchProducts(){
+/*
+export function fetchProductsIfNeeded(){
+  return (dispatch, getState){})
+}
+*/
+
+export function fetchProducts(page = 1){
+  console.log(`fetch page ${page}`)
   return (dispatch) => {
     dispatch(productsIsLoading(true));
     setTimeout(() => {
-      fetch('https://jsonplaceholder.typicode.com/photos?_page=1')
+      fetch(`https://jsonplaceholder.typicode.com/photos?_page=${page}`)
         .then(response => response.json())
         .then(json =>
-          dispatch(receiveProducts(json))
+          dispatch(receiveProducts(json, page))
         )
         .catch(error =>
           dispatch(errorProducts(error))

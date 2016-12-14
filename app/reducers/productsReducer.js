@@ -3,7 +3,7 @@ import {
   ERROR_PRODUCTS, SELECT_PRODUCT, PRODUCTS_LOADING
 } from '../actions/productActions'
 
-export function products(state = { isFetching: false, list: [] }, action){
+export function products(state = { isFetching: false, list: [], page: null }, action){
   switch (action.type) {
     case PRODUCTS_LOADING:
       return Object.assign({}, state, {
@@ -14,7 +14,8 @@ export function products(state = { isFetching: false, list: [] }, action){
       return Object.assign({}, state, {
         isFetching: action.isLoading,
         list: action.products,
-        lastUpdated: action.receivedAt
+        lastUpdated: action.receivedAt,
+        page: action.page
       })
 
     case ERROR_PRODUCTS:
@@ -36,6 +37,6 @@ export function activeProduct(state=null, action){
       })
 
       default:
-        return state;      
+        return state;
   }
 }

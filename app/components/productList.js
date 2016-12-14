@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col, Thumbnail } from 'react-bootstrap'
+import { Grid, Row, Col, Thumbnail, Image, Pager } from 'react-bootstrap'
+import { Link } from 'react-router'
+import { PREV, NEXT } from '../containers/productListContainer'
 
 class ProductList extends Component {
 
   createListItems() {
     return this.props.products.map((product, index) => {
-      if (index % 4 === 0)<Row>
-        <Col xs={6} md={3}>
-          <Thumbnail href="#" alt="171x180" src={product.thumbnailUrl} />
-        </Col>
-      if (index % 4 === 0)<Row>
+      return (
+        <Link to={`/products/${product.id}`}  key={product.id} activeStyle={{ color: 'red' }} >
+          <Image href="#" src={product.thumbnailUrl} key={product.id} />
+        </Link>
       )
     });
   }
@@ -17,15 +18,23 @@ class ProductList extends Component {
   render() {
     return (
       <div className="ProductList">
-        {this.props.isFetching &&
+        {!this.props.children &&
+          <h1>Products List</h1>
+        }
+        {this.props.params.productId && this.props.children}
+        {!this.props.children && this.props.isFetching &&
           <h4>Loading products...</h4>
         }
 
-        {!this.props.isFetching &&
+        {!this.props.children && !this.props.isFetching &&
           <Grid>
             <Row>
               {this.createListItems()}
             </Row>
+            <Pager>
+              <Pager.Item previous href="#" onClick={() => this.props.getPage(PREV)}>&larr; Previous Page</Pager.Item>
+              <Pager.Item next href="#" onClick={() => this.props.getPage(NEXT)}>Next Page &rarr;</Pager.Item>
+            </Pager>
           </Grid>
         }
       </div>
