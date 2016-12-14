@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import configureStore from './store/configStore';
-//import App from './components/app';
 import ProductDetailContainer from './containers/productDetailContainer'
 import ProductListContainer from './containers/productListContainer'
 
@@ -11,11 +10,9 @@ import Layout from './components/layout'
 import Home from './components/home'
 import About from './components/about'
 import Contact from './components/contact'
+import Error from './components/error'
 
 const store = configureStore();
-
-const NotFound = () => (
-  <h1>404.. This page is not found!</h1>)
 
 ReactDOM.render(
   <Provider store = {store} >
@@ -28,5 +25,6 @@ ReactDOM.render(
         <Route path = "/products/:productId" component = {ProductDetailContainer} />
        </Route>
       </Route>
+      <Route path = "*" component = {Error} />
    </Router>
   </Provider>, document.getElementById('app'));
