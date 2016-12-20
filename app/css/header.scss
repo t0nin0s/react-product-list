@@ -1,0 +1,98 @@
+$font-family: "Open Sans", sans-serif;
+$font-size: 1em;
+
+$nav-background-color: #111;
+$nav-foreground-color: #fff;
+$nav-hover-color: #0000FF;
+$nav-active-background-color: #0000CC;
+
+%plainlist {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+%plainanchor {
+  text-decoration: none;
+  color: $nav-foreground-color;
+}
+
+@mixin transition($property, $time, $type) {
+  -webkit-transition: $property $time $type;
+  -moz-transition: $property $time $type;
+  transition: $property $time $type;
+}
+
+body, html {
+  margin: 0;
+  font: $font-size $font-family
+}
+
+* {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+*:before,
+*:after {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+.layout {
+  padding: 30px;
+}
+
+.nav-main {
+  width: 100%;
+  background-color: $nav-background-color;
+  color: $nav-foreground-color;
+  height: 70px;
+
+  .logo {
+    float: left;
+    height: 40px;
+    padding: 15px 30px;
+    font-size: 1.4em;
+    line-height: 40px;
+  }
+
+  > ul {
+    @extend %plainlist;
+    float: left;
+
+    > li {
+      float: left;
+
+      > a {
+        &:hover,
+        &:focus {
+          @extend %plainanchor;
+        }
+      }
+    }
+  }
+}
+
+.nav-item {
+  display: inline-block;
+  padding: 15px 20px;
+  height: 40px;
+  line-height: 40px;
+  color: $nav-foreground-color;
+  text-decoration: none;
+
+  &:hover {
+    background-color: $nav-hover-color;
+    color: $nav-foreground-color;
+    text-decoration: none;
+
+    @include transition(background-color, 0.3s, ease-in)
+  }
+}
+
+.nav-active-item {
+  background-color: $nav-active-background-color;
+  color: $nav-foreground-color;
+}
