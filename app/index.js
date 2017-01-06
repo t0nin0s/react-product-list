@@ -18,13 +18,12 @@ ReactDOM.render(
   <Provider store = {store} >
     <Router history = {browserHistory}>
       <Route path = "/" component = {Layout}>
-       <IndexRoute component = {Home} />
-       <Route path = "/about" component = {About} />
-       <Route path = "/contact" component = {Contact} />
-       <Route path = "/products" component = {ProductListContainer} >
+        <IndexRoute component = {Home} />
+        <Route path = "/about" component = {About} />
+        <Route path = "/contact" component = {Contact} />
+        <Route path = "/products" component = {ProductListContainer} />
         <Route path = "/products/:productId" component = {ProductDetailContainer} />
-       </Route>
-      </Route>
-      <Route path = "*" component = {Error} />
+     </Route>
+     <Route path = "*" component = {Error} />
    </Router>
   </Provider>, document.getElementById('app'));

@@ -40,10 +40,6 @@ body, html {
   box-sizing: content-box;
 }
 
-.layout {
-  padding: 30px;
-}
-
 .nav-main {
   width: 100%;
   background-color: $nav-background-color;
@@ -58,17 +54,30 @@ body, html {
     line-height: 40px;
   }
 
-  > ul {
+  ul {
     @extend %plainlist;
+  }
+
+  a {
+    &:hover,
+    &:focus {
+      @extend %plainanchor;
+    }
+  }
+
+  > ul {
     float: left;
 
     > li {
       float: left;
 
-      > a {
-        &:hover,
-        &:focus {
-          @extend %plainanchor;
+      &:hover {
+        > .sub-nav {
+          min-height: 20px;
+          max-height: 120px;
+          opacity: 1;
+
+          @include transition(opacity, 0.5s, ease-in);
         }
       }
     }
@@ -88,8 +97,35 @@ body, html {
     color: $nav-foreground-color;
     text-decoration: none;
 
-    @include transition(background-color, 0.3s, ease-in)
+    @include transition(background-color, 0.3s, ease-in);
   }
+}
+
+.sub-nav {
+  min-height: 0;
+  max-height: 0;
+  opacity: 0;
+
+  position:absolute;
+  background-color: $nav-background-color;
+  a {
+    padding: 10px;
+    display:block;
+    &:hover{
+      background-color: $nav-hover-color;
+    }
+  }
+}
+
+.dropdown {
+  display: inline-block;
+  margin: 5px;
+  
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid white;
 }
 
 .nav-active-item {

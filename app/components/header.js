@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
+import { IndexLink, Link } from 'react-router'
 //import CSSModules from 'react-css-modules'
 import styles from '../css/header.scss'
 
@@ -9,7 +9,26 @@ class Header extends Component {
       <nav className="nav-main">
         <div className="logo">Website</div>
         <ul>
-          <li><Link to="/" className="nav-item">Home</Link></li>
+          <li>
+            <IndexLink to="/" className="nav-item " activeClassName='nav-active-item'>
+              Home <span className="dropdown"/>
+            </IndexLink>
+            <ul className="sub-nav">
+              <li><Link to="/#" >this is a submenu 1</Link></li>
+              <li><Link to="/#">this is another submenu</Link></li>
+              <li><Link to="/#">and another</Link></li>
+            </ul>
+          </li>
+          <li>
+            <Link className="nav-item" activeClassName='nav-active-item'>
+              Dropdown 2 <span className="dropdown"/>
+            </Link>
+            <ul className="sub-nav">
+              <li><Link to="/#" >this is a submenu 2</Link></li>
+              <li><Link to="/#">this is yet another</Link></li>
+              <li><Link to="/#">and another 2</Link></li>
+            </ul>
+          </li>
           <li><Link to="/about"  className="nav-item" activeClassName='nav-active-item'>About</Link></li>
           <li><Link to="/contact"  className="nav-item" activeClassName='nav-active-item'>Contact</Link></li>
           <li><Link to="/products"  className="nav-item" activeClassName='nav-active-item' >Products</Link></li>
