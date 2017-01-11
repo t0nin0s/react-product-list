@@ -19,6 +19,7 @@ class Header extends Component {
               <li><Link to="/#">and another</Link></li>
             </ul>
           </li>
+          <li><Link to="/products"  className="nav-item" activeClassName='nav-active-item' >Products</Link></li>
           <li>
             <Link className="nav-item" activeClassName='nav-active-item'>
               Dropdown 2 <span className="dropdown"/>
@@ -31,7 +32,7 @@ class Header extends Component {
           </li>
           <li><Link to="/about"  className="nav-item" activeClassName='nav-active-item'>About</Link></li>
           <li><Link to="/contact"  className="nav-item" activeClassName='nav-active-item'>Contact</Link></li>
-          <li><Link to="/products"  className="nav-item" activeClassName='nav-active-item' >Products</Link></li>
+
         </ul>
       </nav>
     )

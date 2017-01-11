@@ -8,9 +8,11 @@ class ProductList extends Component {
   createListItems() {
     return this.props.products.map((product, index) => {
       return (
-        <Link to={`/products/${product.id}`}  key={product.id} activeStyle={{ color: 'red' }} >
-          <Image href="#" src={product.thumbnailUrl} key={product.id} />
-        </Link>
+        <div className="my-col-xs-6 my-col-sm-3 my-col-md-2">
+          <Link to={`/products/${product.id}`}  key={product.id} activeStyle={{ color: 'red' }} >
+            <Image href="#" src={product.thumbnailUrl} key={product.id} />
+          </Link>
+        </div>
       )
     });
   }
@@ -19,11 +21,11 @@ class ProductList extends Component {
     return (
       <div className="ProductList">
         {!this.props.children &&
-          <h1>Products List</h1>
+          <div className="my-col-xs-12"> <h1>Products List</h1> </div>
         }
         {this.props.params.productId && this.props.children}
         {!this.props.children && this.props.isFetching &&
-          <h4>Loading products...</h4>
+          <div className="my-col-xs-12"> <h4>Loading products...</h4> </div>
         }
 
         {!this.props.children && !this.props.isFetching &&
