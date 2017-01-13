@@ -3,12 +3,10 @@
 @import 'placeholders';
 
 ul { @extend %plainlist; }
-
 a {
   &:hover,
   &:focus { @extend %plainanchor; }
 }
-
 .header {
   overflow: hidden;
   background: #111;
