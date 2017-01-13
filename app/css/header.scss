@@ -1,80 +1,85 @@
-$font-family: "Open Sans", sans-serif;
-$font-size: 1em;
+@import 'variables';
+@import 'mixins';
+@import 'placeholders';
 
-$nav-background-color: #111;
-$nav-foreground-color: #fff;
-$nav-hover-color: #0000FF;
-$nav-active-background-color: #0000CC;
+ul { @extend %plainlist; }
 
-%plainlist {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
+a {
+  &:hover,
+  &:focus { @extend %plainanchor; }
 }
 
-%plainanchor {
-  text-decoration: none;
-  color: $nav-foreground-color;
-}
-
-@mixin transition($property, $time, $type) {
-  -webkit-transition: $property $time $type;
-  -moz-transition: $property $time $type;
-  transition: $property $time $type;
-}
-
-html {
-
-}
-
-body {
-  padding: 0;
-  margin: 0;
-}
-
-body, html {
-  margin: 0;
-  font: $font-size $font-family
-}
-
-.nav-main {
-  width: 100%;
-  background-color: $nav-background-color;
-  color: $nav-foreground-color;
-  height: 70px;
-
-  .logo {
+.header {
+  overflow: hidden;
+  background: #111;
+  font-size: 1.4em;
+  a, label {
+    display: block;
+    padding: 20px;
+    color: #fff;
+    text-decoration: none;
+    line-height: 20px;
+  }
+  .burger-icon {
+    float: right;
+    padding: 15px 20px;
+    line-height: 40px;
+    cursor: pointer;
+    color: white;
+    &:hover {
+      color: #aaa;
+    }
+    &:after {
+      content: "\2261";
+      font-size: 1.2em;
+    }
+    &:focus ~ nav{
+      max-height: 500px;
+    }
+  }
+  > .logo {
     float: left;
-    padding: 15px 30px;
-    font-size: 1.4em;
+    font-weight: bold;
+    font-size: 1.5em;
+    padding: 15px 20px;
     line-height: 40px;
   }
-
-  ul { @extend %plainlist; }
-
-  a {
-    &:hover,
-    &:focus { @extend %plainanchor; }
-  }
-
+}
+nav {
+  float: right;
+  max-height: 0;
+  width: 100%;
+  font-size: 0.8em;
+  -webkit-transition: max-height 0.3s;
+     -moz-transition: max-height 0.3s;
+       -o-transition: max-height 0.3s;
+          transition: max-height 0.3s;
   > ul {
-    float: left;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 10px;
     > li {
-      float: left;
-      position: relative;
-      &:hover {
-        > .sub-nav {
-          visibility: visible;
-          opacity: 1;
-          z-index: 1;
-
-          //@include transition(opacity, 0.5s, ease-in);
-        }
-      }
+      display: block;
+      text-align: center;
     }
   }
 }
+.sub-nav {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  width: auto;
+}
+.dropdown {
+  display: inline-block;
+  margin: 5px;
 
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid white;
+}
 .nav-item {
   display: inline-block;
   padding: 15px 20px;
@@ -90,40 +95,60 @@ body, html {
     @include transition(background-color, 0.3s, ease-in);
   }
 }
+.nav-active-item {
+  background-color: #0000CC;
+}
 
-.sub-nav {
-  visibility: hidden;
-  opacity: 0;
-  position: absolute;
-  top: 100;
-  width: auto;
-
-  > li {
-    white-space: nowrap;
-  }
-
-  background-color: $nav-background-color;
-  a {
-    padding: 10px;
-    display:block;
-    &:hover{
-      background-color: $nav-hover-color;
+@media only screen and (min-width: 767px) {
+  .header {
+    > .burger-icon { display: none; }
+    nav {
+      a {
+        padding: 15px 20px;
+        line-height: 40px;
+        width: auto;
+      }
     }
   }
-}
+  nav {
+    width: auto;
+    max-height: none;
+    > ul {
+      padding: 0;
+      padding-right: 10px;
+      > li {
+        display: inline-block;
+        text-align: left;
+        &:hover {
+          > .sub-nav {
+            visibility: visible;
+            opacity: 1;
+            z-index: 1;
 
-.dropdown {
-  display: inline-block;
-  margin: 5px;
+            @include transition(opacity, 0.3s, ease-in);
+          }
+        }
+      }
+    }
+  }
+  .sub-nav {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 100;
+    width: auto;
+    background-color: $nav-background-color;
 
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid white;
-}
-
-.nav-active-item {
-  background-color: $nav-active-background-color;
-  color: $nav-foreground-color;
+    > li {
+      white-space: nowrap;
+      padding: 0;
+      a {
+        display:block;
+        padding: 10px 10px;
+        &:hover{
+          background-color: $nav-hover-color;
+        }
+      }
+    }
+  }
 }
